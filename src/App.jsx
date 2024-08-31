@@ -28,15 +28,31 @@ export default function App() {
   function handleSubmit(e) {
     e.preventDefault()
     filesToUpload.forEach((file) => console.log(file))
+  }{
+  const handleFilesUpload=(e)=>{
+    const selectedFiles=Array.from(e.target.files)
+    const updatesFiles=selectedFiles.map(item=>({
+      fileName:item.name,
+      fileType:item.type,
+      fileSize:item.size
+    }))
+    setFilesToUpload(updatesFiles)
+
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <TopText />
 
-      <input type='file' />
+      <input type='file'
+      required
+       multiple
+       accept=".pdf, .jpg, .jpeg, .png"
+       onChange={handleFilesUpload}
+       />
 
       <button>Upload </button>
     </form>
   )
+}
 }
